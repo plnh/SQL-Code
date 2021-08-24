@@ -1,0 +1,34 @@
+-- Create Employ demorgraphic table
+CREATE TABLE EmployeeDemographic
+	(EmployeeID int, FirstName varchar(50), Lastname varchar(50), Age int, Gender varchar(50) ) ;
+
+-- Create Employee Salary table
+CREATE TABLE EmployeeSalary
+	(EmployeeID int, JobTittle varchar(50), Salary int ) ;
+
+-- Input Data
+
+INSERT INTO EmployeeDemographic VALUES
+	(1001, 'Bebe Zahara', 'Benet', 28, 'Male'),
+	(1002, 'Victoria',  'Parker', 39, 'Female'),
+	(1003,  'Raven', 'Raven',30, 'Male'),
+	(1004, 'Jujubee', 'Should-have-won', 25, 'Female'),
+	(1005, 'Raja', 'Raja', 36, 'Male'),
+	(1006, 'Maila', 'Luzon', 28, 'Male'),
+	(1007, 'Sangela', 'Hallelujah', 29, 'Female'),
+	(1008, 'Sharon', 'Needles', 29, 'Male'),
+	(1009,  'Chad', 'Michaels', 40, 'Male'),
+	(1010, 'Jinkx', 'Monsoon', 25, 'Female');
+
+
+INSERT INTO EmployeeSalary VALUES
+	(1001, 'Saleman', 1200),
+	(1002, 'Receptionist', 1000),
+	(1003,  'HR', 1300),
+	(1004, 'Buyer', 1500),
+	(1005, 'Engineer', 1700),
+	(1006, 'Product Manager', 2000),
+	(1007, 'Accountant', 1800),
+	(1008, 'Store Manager', 1300),
+	(1009,  'IT Specialist', 1900),
+	(1010, 'Recuitment', 1100);
