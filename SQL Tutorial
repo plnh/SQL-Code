@@ -82,4 +82,29 @@ SELECT *
 FROM WarehouseEmployeeDemographic
 ORDER BY EmployeeID;
 
+--Case
+SELECT FirstName, LastName, Age,
+CASE 
+	WHEN Age > 30 THEN 'Over 30'
+	WHEN Age BETWEEN 27 AND 31 THEN 'LATE 20'
+	WHEN Age BETWEEN 25 AND 27 THEN 'LATE 20'
+	ELSE 'Under 30'
+END AS Mygroup
+FROM EmployeeDemographic
+WHERE AGE IS NOT NULL
+ORDER BY Mygroup;
 
+--CASE
+SELECT FirstName, Lastname, JobTittle, Salary,
+CASE 
+	WHEN JobTittle = 'Saleman' THEN Salary*0.2
+	WHEN JobTittle = 'Receptionist' THEN Salary*0.05
+	WHEN JobTittle = 'HR' THEN Salary*0.02
+	WHEN JobTittle = 'Buyer' THEN Salary*0.1
+	WHEN JobTittle = 'Engineer' THEN Salary*0.15
+	WHEN JobTittle = 'Product Manager' THEN Salary*0.17
+	WHEN JobTittle = 'Accountant' THEN Salary*0.14
+END AS Bonus
+FROM EmployeeDemographic
+JOIN EmployeeSalary
+	ON EmployeeDemographic.EmployeeID = EmployeeSalary.EmployeeID;
