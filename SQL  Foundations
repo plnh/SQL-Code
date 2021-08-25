@@ -108,3 +108,43 @@ END AS Bonus
 FROM EmployeeDemographic
 JOIN EmployeeSalary
 	ON EmployeeDemographic.EmployeeID = EmployeeSalary.EmployeeID;
+	
+-- HAVING
+SELECT JobTittle, COUNT(JobTittle)
+FROM EmployeeDemographic
+JOIN EmployeeSalary
+	ON EmployeeDemographic.EmployeeID = EmployeeSalary.EmployeeID
+GROUP BY JobTittle
+HAVING COUNT(JobTittle) > 1;
+
+
+SELECT JobTittle, AVG(Salary)
+FROM EmployeeDemographic
+JOIN EmployeeSalary
+	ON EmployeeDemographic.EmployeeID = EmployeeSalary.EmployeeID
+GROUP BY JobTittle
+HAVING AVG(Salary) > 1500;
+
+
+-- UPDATE ROWS
+
+UPDATE EmployeeDemographic
+SET EmployeeID = 1018
+WHERE FirstName = 'Victoria' AND Lastname = 'Parker';
+
+-- DELETE ROWS
+SELECT *
+FROM EmployeeDemographic
+WHERE EmployeeID = 1018
+
+DELETE FROM EmployeeDemographic
+WHERE EmployeeID = 1018
+
+
+-- Partition By
+SELECT FirstName, LastName, Gender, Salary,
+	COUNT(Gender) OVER (PARTITION BY Gender) AS TotalGender
+FROM EmployeeSalary sal
+JOIN EmployeeDemographic dem
+ON sal.EmployeeID = dem.EmployeeID
+ORDER BY TotalGender;
