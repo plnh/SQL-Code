@@ -42,3 +42,44 @@ INSERT INTO EmployeeDemographic VALUES
 	(1012, 'Pam',  'Beesly', 29, 'Female'),
 	(1013,  'Dwight', 'Schrute',30, 'Male'),
 	(1014, 'Darryl', 'Philbin', 32, 'Male');
+
+--Join
+SELECT * 
+FROM EmployeeDemographic
+INNER JOIN EmployeeSalary
+	ON EmployeeDemographic.EmployeeID = EmployeeSalary.EmployeeID;
+
+-- Outer Join
+SELECT * 
+FROM EmployeeDemographic
+FULL OUTER JOIN EmployeeSalary
+	ON EmployeeDemographic.EmployeeID = EmployeeSalary.EmployeeID;
+
+-- Left Join
+SELECT * 
+FROM EmployeeDemographic
+LEFT OUTER JOIN EmployeeSalary
+	ON EmployeeDemographic.EmployeeID = EmployeeSalary.EmployeeID;
+
+--Right Join
+SELECT * 
+FROM EmployeeDemographic
+Right OUTER JOIN EmployeeSalary
+	ON EmployeeDemographic.EmployeeID = EmployeeSalary.EmployeeID;
+
+--Union
+SELECT * 
+FROM EmployeeDemographic
+UNION
+SELECT * 
+FROM WarehouseEmployeeDemographic;
+
+--Union All
+SELECT * 
+FROM EmployeeDemographic
+UNION ALL
+SELECT * 
+FROM WarehouseEmployeeDemographic
+ORDER BY EmployeeID;
+
+
