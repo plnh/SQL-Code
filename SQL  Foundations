@@ -1,3 +1,5 @@
+--Written in T-SQL
+
 -- Create Employ demorgraphic table
 CREATE TABLE EmployeeDemographic
 	(EmployeeID int, FirstName varchar(50), Lastname varchar(50), Age int, Gender varchar(50) ) ;
@@ -148,3 +150,114 @@ FROM EmployeeSalary sal
 JOIN EmployeeDemographic dem
 ON sal.EmployeeID = dem.EmployeeID
 ORDER BY TotalGender;
+
+--CTEs
+WITH CTE_Employee AS 
+	(SELECT FirstName, LastName, Gender, Salary,
+		COUNT(Gender) OVER (PARTITION BY Gender) AS TotalGender
+		FROM EmployeeSalary sal
+		JOIN EmployeeDemographic dem
+		ON sal.EmployeeID = dem.EmployeeID
+		WHERE Salary > 1500
+	)
+SELECT FirstName
+FROM CTE_Employee;
+
+-- Temp Table
+DROP TABLE IF EXISTS #temp_Employee
+CREATE TABLE #temp_Employee (
+	JobTitle varchar(50),
+	EmployeePerJob int,
+	AvgAge int,
+	AvgSalary int)
+INSERT INTO #temp_Employee 
+	SELECT JobTittle, count(dem.EmployeeID), AVG(Age), AVG(Salary)
+	FROM EmployeeDemographic dem
+	JOIN EmployeeSalary sal
+	ON dem.EmployeeID = sal.EmployeeID
+	GROUP BY JobTittle
+SELECT * 
+FROM #temp_Employee 
+
+-- String Function
+
+-- Create new table for String Function example
+CREATE TABLE EmployeeError (EmployeeID varchar(50), FirstName varchar(50), Lastname varchar(50)); 
+Insert into EmployeeError Values
+	('1002   ', 'Maurice', 'Mose' ),
+	('   1004', 'Jen', 'Barber'),
+	('   1005   ', 'ROy', 'ODowd - Fired')
+
+-- Trim, Ltrim, RTrim
+SELECT EmployeeID, TRIM(EmployeeID) AS IDTRIM
+FROM EmployeeError;
+
+SELECT EmployeeID, LTRIM(EmployeeID) AS IDTRIM
+FROM EmployeeError;
+
+SELECT EmployeeID, RTRIM(EmployeeID) AS IDTRIM
+FROM EmployeeError;
+
+-- Replace
+SELECT Lastname, REPLACE(Lastname,'- Fired','') AS LastNameFixed
+FROM EmployeeError;
+
+--Substring
+SELECT err.EmployeeID, dem.FirstName
+FROM EmployeeError err
+JOIN EmployeeDemographic dem
+	ON SUBSTRING(dem.FirstName,1,3) = SUBSTRING(err.FirstName,1,3) ;
+
+--Upper & Lower 
+SELECT FirstName, Upper(FirstName) AS NameUpper, Lower(FirstName) AS NameLower
+FROM EmployeeError;
+
+
+--Stored Procedures 
+CREATE PROCEDURE TEST
+AS 
+SELECT *
+FROM EmployeeDemographic;
+
+EXEC TEST;
+
+CREATE PROCEDURE Create_Temp_employee
+AS
+DROP TABLE IF EXISTS #temp_Employee
+CREATE TABLE #temp_Employee (
+	JobTitle varchar(50),
+	EmployeePerJob int,
+	AvgAge int,
+	AvgSalary int)
+INSERT INTO #temp_Employee 
+	SELECT JobTittle, count(dem.EmployeeID), AVG(Age), AVG(Salary)
+	FROM EmployeeDemographic dem
+	JOIN EmployeeSalary sal
+	ON dem.EmployeeID = sal.EmployeeID
+	GROUP BY JobTittle
+SELECT * 
+FROM #temp_Employee;
+
+EXEC Create_Temp_employee;
+
+--Subqueries
+
+--Subqueries in Select
+SELECT EmployeeID, Salary,
+	(SELECT AVG(Salary) FROM EmployeeSalary) AS AllAvgSalary
+FROM EmployeeSalary
+
+-- Subqueries in FROM
+SELECT a.EmployeeID, AllAvgSalary
+FROM (SELECT EmployeeID, Salary, AVG(Salary) over () as AllAvgSalary
+		FROM EmployeeSalary) a;
+
+--Subqueries in From
+
+SELECT EmployeeID, JobTittle, Salary
+FROM EmployeeSalary
+WHERE EmployeeID IN(
+	SELECT EmployeeID
+	FROM EmployeeDemographic
+	WHERE Age > 30);
+
