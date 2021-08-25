@@ -6,6 +6,10 @@ CREATE TABLE EmployeeDemographic
 CREATE TABLE EmployeeSalary
 	(EmployeeID int, JobTittle varchar(50), Salary int ) ;
 
+-- Create Warehouse Employ demorgraphic table
+CREATE TABLE WarehouseEmployeeDemographic
+	(EmployeeID int, FirstName varchar(50), Lastname varchar(50), Age int, Gender varchar(50) );
+	
 -- Input Data
 
 INSERT INTO EmployeeDemographic VALUES
@@ -32,3 +36,9 @@ INSERT INTO EmployeeSalary VALUES
 	(1008, 'Store Manager', 1300),
 	(1009,  'IT Specialist', 1900),
 	(1010, 'Recuitment', 1100);
+	
+INSERT INTO EmployeeDemographic VALUES
+	(1011, 'Jim', 'Halpert', 28, 'Male'),
+	(1012, 'Pam',  'Beesly', 29, 'Female'),
+	(1013,  'Dwight', 'Schrute',30, 'Male'),
+	(1014, 'Darryl', 'Philbin', 32, 'Male');
