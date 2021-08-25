@@ -1,2 +1,2 @@
 # Readme
-This repository is where I store all code or documents related to SQL
+This repository is where I store all codes or documents related to SQL
