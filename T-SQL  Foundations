@@ -1,5 +1,3 @@
---Written in T-SQL
-
 -- Create Employ demorgraphic table
 CREATE TABLE EmployeeDemographic
 	(EmployeeID int, FirstName varchar(50), Lastname varchar(50), Age int, Gender varchar(50) ) ;
